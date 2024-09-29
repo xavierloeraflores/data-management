@@ -22,17 +22,82 @@ EcoMart needs a database solution that can accommodate their worldwide sales dat
 
 ### Data Structure Proposal
 
+The following fields are available to use in the sales data:
+Region,Country,Item Type,Sales Channel,Order Priority,Order Date,Order ID,Ship Date,Units Sold,Unit Price,Unit Cost,Total Revenue,Total Cost,Total Profit
+
+The the data will be stored in a relational table data structure which include the following tables:
+
+-   Region
+-   Country
+-   Unit
+-   Order
+-   Sales Channel
+
 ### SQL Database Solution Justification
 
 By implementing a relational database solution, the EcoMart team can identify trends, track sales performance, and make data-driven decisions to target customers in specific regions with marketing or promotional campaigns. The database solution will allow the team to structure, store, manage, and organize their sales data, enabling them to perform data queries and analysis to gain insights into their business performance in any specified region.
 
 ### Business Data Usage
 
+The business data will be used to track sales performance, identify trends, and make data-driven decisions to target customers in specific regions with marketing or promotional campaigns. All of the sales data will be stored into the database and normalized across different tables to ensure data integrity and consistency.
+
 ---
 
 ## Logical Data Model
 
----
+The logical data model for the EcoMart database solution is as follows:
+
+### Region Table
+
+region
+| field | type |
+|-------|------|
+| region_id | INT PRIMARY KEY |
+| region_name | VARCHAR(255) |
+
+### Country Table
+
+country
+| field | type |
+|-------|------|
+| country_id | INT PRIMARY KEY |
+| country_name | VARCHAR(255) |
+| region_id | INT FOREIGN KEY REFERENCES region(region_id) |
+
+### Unit Table
+
+unit
+| field | type |
+|-------|------|
+| unit_id | INT PRIMARY KEY |
+| item_type | VARCHAR(255) |
+| unit_price | DECIMAL(10,2) |
+| unit_cost | DECIMAL(10,2) |
+
+### Sales Channel Table
+
+sales_channel
+| field | type |
+|-------|------|
+| sales_channel_id | INT PRIMARY KEY |
+| sales_channel_name | VARCHAR(255) |
+
+### Order Table
+
+order
+| field | type |
+|-------|------|
+| order_id | INT PRIMARY KEY |
+| order_date | DATE |
+| ship_date | DATE |
+| units_sold | INT |
+| country_id | INT FOREIGN KEY REFERENCES country(country_id) |
+| unit_id | INT FOREIGN KEY REFERENCES unit(unit_id) |
+| sales_channel_id | INT FOREIGN KEY REFERENCES sales_channel(sales_channel_id) |
+
+Total cost, total revenue, and total profit are not stored in the database as they can be calculated using the unit cost, unit price, and units sold fields.
+
+--
 
 ## Database Objects and Storage
 
