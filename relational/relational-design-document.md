@@ -43,7 +43,7 @@ The business data will be used to track sales performance, identify trends, and 
 
 ---
 
-## Logical Data Model
+## Logical Data Model & Database Objects/Storage
 
 The logical data model for the EcoMart database solution is as follows:
 
@@ -105,13 +105,38 @@ The relationships between the tables are as follows:
 -   The `unit` table has a foreign key reference to the `order` table.
 -   The `order` table has foreign key references to the `country`, `unit`, and `sales_channel` tables.
 
---
+### Storage
 
-## Database Objects and Storage
+The data will be stored in a relational database management system (RDBMS) such as MySQL, PostgreSQL, or SQL Server. The tables will be created in the RDBMS with the appropriate data types and constraints to ensure data integrity and consistency.
+
+### Views
+
+There will be one additional view that will be created to mimic the original dat spreadsheet structure. It will contain the following fields:
+
+-   region
+-   country
+-   item_type
+-   sales_channel
+-   order_priority
+-   order_date
+-   order_id
+-   ship_date
+-   units_sold
+-   unit_price
+-   unit_cost
+-   total_revenue
+-   total_cost
+-   total_profit
+
+The Total Revenue, Total Cost, and Total Profit fields will be calculated in the view using the Unit Price, Unit Cost, and Units Sold fields.
 
 ---
 
 ## Scalability Concerns and Strategies
+
+The proposed database design addresses scalability concerns by organizing the data into normalized relational tables, which optimizes performance as the dataset grows. By splitting sales data into separate entities (Region, Country, Unit, Sales Channel, & Order), the database can handle increasing volumes of data more efficiently by reducing redundancy and improving query performance. Additionally, calculating fields like total revenue and total profit dynamically in views reduces storage overhead aligning the design with EcoMart’s need for flexible growth for constantly changing data.
+
+There are 2 potential strategies using a relational database management system to address scalability needs. Firstly, we can simply scale vertically by enhancing server capacity with better compute resources as needed. This would allow us to scale introducing more complexity into our system design. The second strategy is to scale the database horizontally (distributing data across servers) via methods such as sharding or splitting data depending on the region. This would increase complexity and may require more resources but it allows to continuously scale without needing more powerful machines.
 
 ---
 
