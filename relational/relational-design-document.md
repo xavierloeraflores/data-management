@@ -97,6 +97,14 @@ order
 
 Total cost, total revenue, and total profit are not stored in the database as they can be calculated using the unit cost, unit price, and units sold fields.
 
+### Relationships
+
+The relationships between the tables are as follows:
+
+-   The `country` table has a foreign key reference to the `region` table.
+-   The `unit` table has a foreign key reference to the `order` table.
+-   The `order` table has foreign key references to the `country`, `unit`, and `sales_channel` tables.
+
 --
 
 ## Database Objects and Storage
