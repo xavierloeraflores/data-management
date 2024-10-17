@@ -142,4 +142,10 @@ There are 2 potential strategies using a relational database management system t
 
 ## Privacy and Security Measures
 
+The following measures will be implemented to ensure EcoMart's level of privacy and security are met in the proposed database design.
+
+-   Access controls and role-based permissions will limit database access based on user roles to ensure only authorized personnel can view or modify personal sensitive data such as orders and personal information.
+-   Sensitive data like customer information or sales transactions should be encrypted using secure encryption algorithms to protect incase of an unauthorized access.
+-   Logging and auditing must be set up to track and detect malicious database activity and breaches.
+
 ---
