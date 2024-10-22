@@ -38,7 +38,7 @@ ON CONFLICT (region_name) DO NOTHING;
 INSERT INTO countries (country_name, region_id)
 SELECT DISTINCT  country_name, regions.region_id
 FROM staging
-JOIN regions ON order_staging.region_name = regions.region_name
+JOIN regions ON staging.region_name = regions.region_name;
 
 INSERT INTO units (item_type, unit_price, unit_cost)
 SELECT DISTINCT  item_type, unit_price, unit_cost
@@ -48,7 +48,7 @@ ON CONFLICT (item_type) DO NOTHING;
 INSERT INTO orders (order_date, ship_date, units_sold, country_id, unit_id, sales_channel_id, order_priority_id)
 SELECT DISTINCT  order_date, ship_date, units_sold, countries.country_id, units.unit_id, sales_channels.sales_channel_id, order_priorities.order_priority_id
 FROM staging
-JOIN countries ON order_staging.country_name = countries.country_name
-JOIN units ON order_staging.item_type = units.item_type
-JOIN sales_channels ON order_staging.sales_channel_name = sales_channels.sales_channel_name
-JOIN order_priorities ON order_staging.order_priority_name = order_priorities.order_priority_name;
+JOIN countries ON staging.country_name = countries.country_name
+JOIN units ON staging.item_type = units.item_type
+JOIN sales_channels ON staging.sales_channel_name = sales_channels.sales_channel_name
+JOIN order_priorities ON staging.order_priority_name = order_priorities.order_priority_name;

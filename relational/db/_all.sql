@@ -1,13 +1,13 @@
 
 CREATE TABLE  regions (
     region_id INT PRIMARY KEY,
-    region_name VARCHAR(255)
+    region_name VARCHAR(255) UNIQUE
 );
 
 
 CREATE TABLE countries (
     country_id INT PRIMARY KEY,
-    country_name VARCHAR(255),
+    country_name VARCHAR(255) UNIQUE,
     region_id INT,
     FOREIGN KEY (region_id) REFERENCES regions(region_id)
 );
@@ -15,7 +15,7 @@ CREATE TABLE countries (
 
 CREATE TABLE units (
     unit_id INT PRIMARY KEY,
-    item_type VARCHAR(255),
+    item_type VARCHAR(255) UNIQUE,
     unit_price DECIMAL(10,2),
     unit_cost DECIMAL(10,2)
 );
@@ -24,14 +24,14 @@ CREATE TABLE units (
 
 CREATE TABLE sales_channels (
     sales_channel_id INT PRIMARY KEY,
-    sales_channel_name VARCHAR(255)
+    sales_channel_name VARCHAR(255) UNIQUE
 );
 
 
 
 CREATE TABLE order_priorities (
     order_priority_id INT PRIMARY KEY,
-    order_priority_name VARCHAR(255)
+    order_priority_name VARCHAR(255) UNIQUE
 );
 
 
@@ -78,7 +78,6 @@ JOIN units ON orders.unit_id = units.unit_id
 JOIN sales_channels ON orders.sales_channel_id = sales_channels.sales_channel_id
 JOIN order_priorities ON orders.order_priority_id = order_priorities.order_priority_id;
 
-
 CREATE TABLE staging (
     region_name VARCHAR(255),
     country_name VARCHAR(255),
@@ -119,7 +118,7 @@ ON CONFLICT (region_name) DO NOTHING;
 INSERT INTO countries (country_name, region_id)
 SELECT DISTINCT  country_name, regions.region_id
 FROM staging
-JOIN regions ON order_staging.region_name = regions.region_name
+JOIN regions ON staging.region_name = regions.region_name;
 
 INSERT INTO units (item_type, unit_price, unit_cost)
 SELECT DISTINCT  item_type, unit_price, unit_cost
@@ -129,8 +128,7 @@ ON CONFLICT (item_type) DO NOTHING;
 INSERT INTO orders (order_date, ship_date, units_sold, country_id, unit_id, sales_channel_id, order_priority_id)
 SELECT DISTINCT  order_date, ship_date, units_sold, countries.country_id, units.unit_id, sales_channels.sales_channel_id, order_priorities.order_priority_id
 FROM staging
-JOIN countries ON order_staging.country_name = countries.country_name
-JOIN units ON order_staging.item_type = units.item_type
-JOIN sales_channels ON order_staging.sales_channel_name = sales_channels.sales_channel_name
-JOIN order_priorities ON order_staging.order_priority_name = order_priorities.order_priority_name;
-
+JOIN countries ON staging.country_name = countries.country_name
+JOIN units ON staging.item_type = units.item_type
+JOIN sales_channels ON staging.sales_channel_name = sales_channels.sales_channel_name
+JOIN order_priorities ON staging.order_priority_name = order_priorities.order_priority_name;
