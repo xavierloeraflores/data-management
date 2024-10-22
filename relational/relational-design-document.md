@@ -82,18 +82,27 @@ sales_channel
 | sales_channel_id | INT PRIMARY KEY |
 | sales_channel_name | VARCHAR(255) |
 
+### Order Priority Table
+
+order_priorities
+| field | type |
+| ------------------- | --------------- |
+| order_priority_id | INT PRIMARY KEY |
+| order_priority_name | VARCHAR(255) |
+
 ### Order Table
 
-order
+orders
 | field | type |
 |-------|------|
 | order_id | INT PRIMARY KEY |
 | order_date | DATE |
 | ship_date | DATE |
 | units_sold | INT |
-| country_id | INT FOREIGN KEY REFERENCES country(country_id) |
-| unit_id | INT FOREIGN KEY REFERENCES unit(unit_id) |
-| sales_channel_id | INT FOREIGN KEY REFERENCES sales_channel(sales_channel_id) |
+| country_id | INT FOREIGN KEY REFERENCES countries(country_id) |
+| unit_id | INT FOREIGN KEY REFERENCES units(unit_id) |
+| sales_channel_id | INT FOREIGN KEY REFERENCES sales_channels(sales_channel_id) |
+| order_priority_id | INT FOREIGN KEY REFERENCES order_priorities(order_priority_id) |
 
 Total cost, total revenue, and total profit are not stored in the database as they can be calculated using the unit cost, unit price, and units sold fields.
 
