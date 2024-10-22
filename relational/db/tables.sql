@@ -75,7 +75,7 @@ CREATE TABLE sales_channel (
 -- | unit_id | INT FOREIGN KEY REFERENCES unit(unit_id) |
 -- | sales_channel_id | INT FOREIGN KEY REFERENCES sales_channel(sales_channel_id) |
 
-CREATE TABLE order_table (
+CREATE TABLE order (
     order_id INT PRIMARY KEY,
     order_date DATE,
     ship_date DATE,
