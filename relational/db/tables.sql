@@ -43,9 +43,10 @@ CREATE TABLE orders (
     country_id INT,
     unit_id INT,
     sales_channel_id INT,
+    order_priority_id INT,
     FOREIGN KEY (country_id) REFERENCES countries(country_id),
     FOREIGN KEY (unit_id) REFERENCES units(unit_id),
-    FOREIGN KEY (sales_channel_id) REFERENCES sales_channels(sales_channel_id)
+    FOREIGN KEY (sales_channel_id) REFERENCES sales_channels(sales_channel_id),
     FOREIGN KEY (order_priority_id) REFERENCES order_priorities(order_priority_id)
 );
 
