@@ -50,9 +50,6 @@ CREATE TABLE orders (
     FOREIGN KEY (order_priority_id) REFERENCES order_priorities(order_priority_id)
 );
 
-
-
-
 -- Region,Country,Item Type,Sales Channel,Order Priority,Order Date,Order ID,Ship Date,Units Sold,Unit Price,Unit Cost,Total Revenue,Total Cost,Total Profit
 --- Total Revenue = Units Sold * Unit Price
 --- Total Cost = Units Sold * Unit Cost
@@ -82,8 +79,6 @@ JOIN sales_channels ON orders.sales_channel_id = sales_channels.sales_channel_id
 JOIN order_priorities ON orders.order_priority_id = order_priorities.order_priority_id;
 
 
-
-
 CREATE TABLE staging (
     region_name VARCHAR(255),
     country_name VARCHAR(255),
@@ -105,4 +100,37 @@ CREATE TABLE staging (
 COPY staging FROM 'C:\WGU\D597\Task 1\Scenario 2\Sales_Records.csv'
 DELIMITER ','
 CSV HEADER;
+
+INSERT INTO sales_channels (sales_channel_name)
+SELECT DISTINCT  sales_channel_name
+FROM staging
+ON CONFLICT (sales_channel_name) DO NOTHING;
+
+INSERT INTO order_priorities (order_priority_name)
+SELECT DISTINCT  order_priority_name
+FROM staging
+ON CONFLICT (order_priority_name) DO NOTHING;
+
+INSERT INTO regions (region_name)
+SELECT DISTINCT  region_name
+FROM staging
+ON CONFLICT (region_name) DO NOTHING;
+
+INSERT INTO countries (country_name, region_id)
+SELECT DISTINCT  country_name, regions.region_id
+FROM staging
+JOIN regions ON order_staging.region_name = regions.region_name
+
+INSERT INTO units (item_type, unit_price, unit_cost)
+SELECT DISTINCT  item_type, unit_price, unit_cost
+FROM staging
+ON CONFLICT (item_type) DO NOTHING;
+
+INSERT INTO orders (order_date, ship_date, units_sold, country_id, unit_id, sales_channel_id, order_priority_id)
+SELECT DISTINCT  order_date, ship_date, units_sold, countries.country_id, units.unit_id, sales_channels.sales_channel_id, order_priorities.order_priority_id
+FROM staging
+JOIN countries ON order_staging.country_name = countries.country_name
+JOIN units ON order_staging.item_type = units.item_type
+JOIN sales_channels ON order_staging.sales_channel_name = sales_channels.sales_channel_name
+JOIN order_priorities ON order_staging.order_priority_name = order_priorities.order_priority_name;
 
