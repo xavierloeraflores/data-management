@@ -32,6 +32,9 @@ The the data will be stored in a relational table data structure which include t
 -   Unit
 -   Order
 -   Sales Channel
+-   Order Priority
+
+There will also be a temporary staging table which features the same columns as the original csv data spreadsheet. This table will be used to load the data into the database and then transformed into the normalized tables.
 
 ### SQL Database Solution Justification
 
@@ -52,7 +55,7 @@ The logical data model for the EcoMart database solution is as follows:
 region
 | field | type |
 |-------|------|
-| region_id | INT PRIMARY KEY |
+| region_id | SERIAL PRIMARY KEY |
 | region_name | VARCHAR(255) |
 
 ### Country Table
@@ -60,7 +63,7 @@ region
 country
 | field | type |
 |-------|------|
-| country_id | INT PRIMARY KEY |
+| country_id | SERIAL PRIMARY KEY |
 | country_name | VARCHAR(255) |
 | region_id | INT FOREIGN KEY REFERENCES region(region_id) |
 
@@ -69,7 +72,7 @@ country
 unit
 | field | type |
 |-------|------|
-| unit_id | INT PRIMARY KEY |
+| unit_id | SERIAL PRIMARY KEY |
 | item_type | VARCHAR(255) |
 | unit_price | DECIMAL(10,2) |
 | unit_cost | DECIMAL(10,2) |
@@ -79,7 +82,7 @@ unit
 sales_channel
 | field | type |
 |-------|------|
-| sales_channel_id | INT PRIMARY KEY |
+| sales_channel_id | SERIAL PRIMARY KEY |
 | sales_channel_name | VARCHAR(255) |
 
 ### Order Priority Table
@@ -87,7 +90,7 @@ sales_channel
 order_priorities
 | field | type |
 | ------------------- | --------------- |
-| order_priority_id | INT PRIMARY KEY |
+| order_priority_id | SERIAL PRIMARY KEY |
 | order_priority_name | VARCHAR(255) |
 
 ### Order Table
@@ -95,7 +98,7 @@ order_priorities
 orders
 | field | type |
 |-------|------|
-| order_id | INT PRIMARY KEY |
+| order_id | SERIAL PRIMARY KEY |
 | order_date | DATE |
 | ship_date | DATE |
 | units_sold | INT |
@@ -106,13 +109,32 @@ orders
 
 Total cost, total revenue, and total profit are not stored in the database as they can be calculated using the unit cost, unit price, and units sold fields.
 
+### Staging Table
+
+staging
+| field | type |
+|-------|------|
+| region_name | VARCHAR(255) |
+| country_name | VARCHAR(255) |
+| item_type | VARCHAR(255) |
+| sales_channel_name | VARCHAR(255) |
+| order_priority_name | VARCHAR(255) |
+| order_date | DATE |
+| order_id | INT |
+| ship_date | DATE |
+| units_sold | INT |
+| unit_price | DECIMAL(10,2) |
+| unit_cost | DECIMAL(10,2) |
+| total_revenue | DECIMAL(10,2) |
+| total_cost | DECIMAL(10,2) |
+| total_profit | DECIMAL(10,2) |
+
 ### Relationships
 
 The relationships between the tables are as follows:
 
 -   The `country` table has a foreign key reference to the `region` table.
--   The `unit` table has a foreign key reference to the `order` table.
--   The `order` table has foreign key references to the `country`, `unit`, and `sales_channel` tables.
+-   The `order` table has foreign key references to the `country`, `unit`, `sales_channel`, and `order_priority` tables.
 
 ### Storage
 
@@ -120,7 +142,7 @@ The data will be stored in a relational database management system (RDBMS) such 
 
 ### Views
 
-There will be one additional view that will be created to mimic the original dat spreadsheet structure. It will contain the following fields:
+There will be one additional sales view that will be created to mimic the original data spreadsheet structure. It will contain the following fields:
 
 -   region
 -   country
