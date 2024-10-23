@@ -14,18 +14,18 @@ D596 Data Management
 
 ## Business Scenario
 
-EcoMart is a online consumer marketplace that needs a relational database to store and manage their data. The relational database solution should be tailored to their marketplace featuring a flexible data model, scalable performance optimization, robust security measure, and monitoring and maintenance workflows.
+EcoMart is an online consumer marketplace that needs a relational database to store and manage their data. The relational database solution should be tailored to their marketplace featuring a flexible data model, scalable performance optimization, robust security measures, and monitoring and maintenance workflows.
 
 ### Business Problem
 
-EcoMart needs a database solution that can accommodate their worldwide sales data while being able to scale to meet the demands of their growing customer base. Having a database for their marketplace sales data will allow the EcoMart team to gain key insights and answers to business questions regarding their sales data. While the the EcoMart team has a good understanding to their business standing on the global market, they do not have deep understanding as to which regions are driving their success and which regions are under performing.
+EcoMart needs a database solution that can accommodate its worldwide sales data while being able to scale to meet the demands of its growing customer base. Having a database for their marketplace sales data will allow the EcoMart team to gain key insights and answers to business questions regarding their sales data. While the EcoMart team has a good understanding of their business standing on the global market, they do not have a deep understanding as to which regions are driving their success and which areas are underperforming.
 
 ### Data Structure Proposal
 
 The following fields are available to use in the sales data:
-Region,Country,Item Type,Sales Channel,Order Priority,Order Date,Order ID,Ship Date,Units Sold,Unit Price,Unit Cost,Total Revenue,Total Cost,Total Profit
+Region, Country, Item Type, Sales Channel, Order Priority, Order Date, Order ID, Ship Date, Units Sold, Unit Price, Unit Cost, Total Revenue, Total Cost, Total Profit
 
-The the data will be stored in a relational table data structure which include the following tables:
+The data will be stored in a relational table data structure which includes the following tables:
 
 -   Region
 -   Country
@@ -34,7 +34,7 @@ The the data will be stored in a relational table data structure which include t
 -   Sales Channel
 -   Order Priority
 
-There will also be a temporary staging table which features the same columns as the original csv data spreadsheet. This table will be used to load the data into the database and then transformed into the normalized tables.
+There will also be a temporary staging table that features the same columns as the original CSV data spreadsheet. This table will be used to load the data into the database and then transformed into the normalized tables.
 
 ### SQL Database Solution Justification
 
@@ -42,7 +42,7 @@ By implementing a relational database solution, the EcoMart team can identify tr
 
 ### Business Data Usage
 
-The business data will be used to track sales performance, identify trends, and make data-driven decisions to target customers in specific regions with marketing or promotional campaigns. All of the sales data will be stored into the database and normalized across different tables to ensure data integrity and consistency.
+The business data will be used to track sales performance, identify trends, and make data-driven decisions to target customers in specific regions with marketing or promotional campaigns. All of the sales data will be stored in the database and normalized across different tables to ensure data integrity and consistency.
 
 ---
 
@@ -167,7 +167,7 @@ The Total Revenue, Total Cost, and Total Profit fields will be calculated in the
 
 The proposed database design addresses scalability concerns by organizing the data into normalized relational tables, which optimizes performance as the dataset grows. By splitting sales data into separate entities (Region, Country, Unit, Sales Channel, & Order), the database can handle increasing volumes of data more efficiently by reducing redundancy and improving query performance. Additionally, calculating fields like total revenue and total profit dynamically in views reduces storage overhead aligning the design with EcoMart’s need for flexible growth for constantly changing data.
 
-There are 2 potential strategies using a relational database management system to address scalability needs. Firstly, we can simply scale vertically by enhancing server capacity with better compute resources as needed. This would allow us to scale introducing more complexity into our system design. The second strategy is to scale the database horizontally (distributing data across servers) via methods such as sharding or splitting data depending on the region. This would increase complexity and may require more resources but it allows to continuously scale without needing more powerful machines.
+There are 2 potential strategies using a relational database management system to address scalability needs. Firstly, we can simply scale vertically by enhancing server capacity with better computing resources as needed. This would allow us to scale introducing more complexity into our system design. The second strategy is to scale the database horizontally (distributing data across servers) via methods such as sharding or splitting data depending on the region. This would increase complexity and may require more resources but it allows to continuously scale without needing more powerful machines.
 
 ---
 
