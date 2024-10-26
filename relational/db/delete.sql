@@ -1,4 +1,7 @@
 DROP VIEW IF EXISTS sales;
+DROP VIEW IF EXISTS sales_by_country;
+DROP VIEW IF EXISTS sales_by_unit;
+DROP VIEW IF EXISTS sales_last_month;
 DROP TABLE IF EXISTS staging;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS countries;

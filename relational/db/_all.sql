@@ -79,6 +79,32 @@ JOIN units ON orders.unit_id = units.unit_id
 JOIN sales_channels ON orders.sales_channel_id = sales_channels.sales_channel_id
 JOIN order_priorities ON orders.order_priority_id = order_priorities.order_priority_id;
 
+CREATE VIEW sales_by_country AS
+SELECT
+    country_name,
+    SUM(total_revenue) AS total_revenue,
+    SUM(total_cost) AS total_cost,
+    SUM(total_profit) AS total_profit
+FROM sales
+GROUP BY country_name;
+
+CREATE VIEW sales_by_unit AS
+SELECT
+    item_type,
+    SUM(total_revenue) AS total_revenue,
+    SUM(total_cost) AS total_cost,
+    SUM(total_profit) AS total_profit
+FROM sales
+GROUP BY item_type;
+
+CREATE VIEW sales_last_month AS
+SELECT
+    *
+FROM sales
+WHERE order_date >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
+  AND order_date < DATE_TRUNC('month', CURRENT_DATE);
+  
+
 CREATE TABLE staging (
     region_name VARCHAR(255),
     country_name VARCHAR(255),
