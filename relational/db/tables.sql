@@ -1,3 +1,4 @@
+-- Create Tables
 
 CREATE TABLE  regions (
     region_id SERIAL PRIMARY KEY,

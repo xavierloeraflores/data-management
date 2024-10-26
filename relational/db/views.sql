@@ -25,6 +25,7 @@ JOIN order_priorities ON orders.order_priority_id = order_priorities.order_prior
 CREATE VIEW sales_by_country AS
 SELECT
     country_name,
+    region_name,
     SUM(total_revenue) AS total_revenue,
     SUM(total_cost) AS total_cost,
     SUM(total_profit) AS total_profit
@@ -34,6 +35,7 @@ GROUP BY country_name;
 CREATE VIEW sales_by_unit AS
 SELECT
     item_type,
+    SUM(units_sold) AS total_units_sold,
     SUM(total_revenue) AS total_revenue,
     SUM(total_cost) AS total_cost,
     SUM(total_profit) AS total_profit

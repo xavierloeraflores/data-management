@@ -16,10 +16,12 @@ CREATE TABLE staging (
     total_profit DECIMAL(10,2)
 );
 
--- ABSOLUTE PATH: 
+-- ABSOLUTE PATH: 'C:\WGU\D597\Task 1\Scenario 2\Sales_Records.csv'
 COPY staging FROM 'C:\WGU\D597\Task 1\Scenario 2\Sales_Records.csv'
 DELIMITER ','
 CSV HEADER;
+
+-- Insert data into the tables
 
 INSERT INTO sales_channels (sales_channel_name)
 SELECT DISTINCT  sales_channel_name
