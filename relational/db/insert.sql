@@ -1,3 +1,4 @@
+-- Staging Table
 CREATE TABLE staging (
     region_name VARCHAR(255),
     country_name VARCHAR(255),

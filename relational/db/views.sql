@@ -49,9 +49,9 @@ WHERE order_date >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
 
 CREATE VIEW sales_by_year AS
 SELECT
-    EXTRACT(YEAR FROM order_date) AS year,
+    EXTRACT(YEAR FROM order_date) AS sales_year,
     SUM(total_revenue) AS total_revenue,
     SUM(total_cost) AS total_cost,
     SUM(total_profit) AS total_profit
 FROM sales
-GROUP BY year;
+GROUP BY sales_year;
