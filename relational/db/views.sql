@@ -1,8 +1,4 @@
--- Region,Country,Item Type,Sales Channel,Order Priority,Order Date,Order ID,Ship Date,Units Sold,Unit Price,Unit Cost,Total Revenue,Total Cost,Total Profit
---- Total Revenue = Units Sold * Unit Price
---- Total Cost = Units Sold * Unit Cost
---- Total Profit = Total Revenue - Total Cost
-
+-- VIEWS FOR SALES ANALYSIS
 CREATE VIEW sales AS
 SELECT
     regions.region_name,
@@ -50,4 +46,12 @@ SELECT
 FROM sales
 WHERE order_date >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
   AND order_date < DATE_TRUNC('month', CURRENT_DATE);
-  
+
+CREATE VIEW sales_by_year AS
+SELECT
+    EXTRACT(YEAR FROM order_date) AS year,
+    SUM(total_revenue) AS total_revenue,
+    SUM(total_cost) AS total_cost,
+    SUM(total_profit) AS total_profit
+FROM sales
+GROUP BY year;
