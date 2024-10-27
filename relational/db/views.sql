@@ -30,7 +30,7 @@ SELECT
     SUM(total_cost) AS total_cost,
     SUM(total_profit) AS total_profit
 FROM sales
-GROUP BY country_name;
+GROUP BY country_name, region_name;
 
 CREATE VIEW sales_by_unit AS
 SELECT

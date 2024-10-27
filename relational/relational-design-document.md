@@ -52,7 +52,7 @@ The logical data model for the EcoMart database solution is as follows:
 
 ### Region Table
 
-region
+regions
 | field | type |
 |-------|------|
 | region_id | SERIAL PRIMARY KEY |
@@ -60,7 +60,7 @@ region
 
 ### Country Table
 
-country
+countries
 | field | type |
 |-------|------|
 | country_id | SERIAL PRIMARY KEY |
@@ -69,7 +69,7 @@ country
 
 ### Unit Table
 
-unit
+units
 | field | type |
 |-------|------|
 | unit_id | SERIAL PRIMARY KEY |
@@ -142,7 +142,8 @@ The data will be stored in a relational database management system (RDBMS) such 
 
 ### Views
 
-There will be one additional sales view that will be created to mimic the original data spreadsheet structure. It will contain the following fields:
+There will be one general sales view that will be created to mimic the original data spreadsheet structure. It will contain the following fields:
+sales:
 
 -   region
 -   country
@@ -160,6 +161,16 @@ There will be one additional sales view that will be created to mimic the origin
 -   total_profit
 
 The Total Revenue, Total Cost, and Total Profit fields will be calculated in the view using the Unit Price, Unit Cost, and Units Sold fields.
+
+From this sales view, more views can be created to analyze sales data by key factors.
+Our solution will have the following views:
+
+-   sales_by_country
+-   sales_by_unit
+-   sales_last_month
+-   sales_by_year
+
+These views will be generated from the main sales view and will all feature information about the revenue, cost, and profit as well as extra columns for indexing and filtering for their specific views.
 
 ---
 

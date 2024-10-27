@@ -4,8 +4,8 @@ SELECT * from sales;
 -- Query to get sales data from all countries 
 SELECT * from sales_by_country;
 
--- Query to get sales data from countries with total revenue smaller than a specific amount in ascending order
-SELECT * from sales_by_country WHERE total_revenue < 300000000 ORDER BY total_revenue ASC;
+-- Query to get sales data from countries in Europe in ascending order
+SELECT * from sales_by_country WHERE region_name = 'Europe' ORDER BY total_revenue ASC;
 
 -- Query to get sales data on every unit basis
 SELECT * from sales_by_unit;
@@ -19,5 +19,5 @@ SELECT * from sales_last_month;
 -- Query to get yearly sales data 
 SELECT * from sales_by_year;
 
--- Query to get sales data since a specific year
+-- Query to get sales data since a specific year such as 2012
 SELECT * from sales_by_year WHERE sales_year > 2012;
